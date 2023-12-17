@@ -1,8 +1,19 @@
 package cube.cubeStuff;
 
 public class Cube {
+
+    // CONSTANTS
+
+    final public static int ROTATE_X = 0;
+    final public static int ROTATE_Y = 1;
+    final public static int ROTATE_Z = 2;
+
+    // INSTANCE VARIABLES
+
     private int size;
     private Point[] points;
+
+    // CONSTRUCTION METHODS
 
     public Cube(int size) {
         this.size = size;
@@ -40,6 +51,8 @@ public class Cube {
         return temp;
     }
 
+    // TESTING METHODS
+    
     public String toString() {
         String temp = "";
 
