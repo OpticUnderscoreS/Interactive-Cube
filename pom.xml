@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cube</groupId>
-    <artifactId>cubeinteractive</artifactId>
+    <artifactId>interactive-cube</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
