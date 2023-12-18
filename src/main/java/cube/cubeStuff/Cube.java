@@ -10,29 +10,70 @@ public class Cube {
 
     // INSTANCE VARIABLES
 
-    private int size;
+    private float size;
     private Point[] points;
+    private double radius;
+
+    // INSTANCE METHODS
+
+    public void rotate(int axis, float angle) throws IllegalArgumentException {
+        int horizontalAxis;
+        int verticalAxis;
+
+        switch (axis) {
+            case ROTATE_X:
+                horizontalAxis = ROTATE_Z;
+                verticalAxis = ROTATE_Y;
+                break;
+            case ROTATE_Y:
+                horizontalAxis = ROTATE_Z;
+                verticalAxis = ROTATE_X;
+                break;
+            case ROTATE_Z:
+                horizontalAxis = ROTATE_X;
+                verticalAxis = ROTATE_Y;
+                break;
+            default:
+                throw new IllegalArgumentException();
+            
+        }
+
+        for (Point p : points) {
+            p.rotate(verticalAxis, horizontalAxis, angle, radius);
+        }
+    }
+
 
     // CONSTRUCTION METHODS
 
-    public Cube(int size) {
+    public Point getPoint(int index) {
+        return points[index];
+    }
+
+    public Cube(float size) {
         this.size = size;
 
         generateCube();
     }
 
     private void generateCube() {
-        float halfSize = ((float) size)/2;
+        double halfSize =  size/2;
         points = new Point[8];
 
-        float[] coords;
+        radius = Math.sqrt(2 * halfSize*halfSize);
+        System.out.println("Size: " + size);
+        System.out.println("Size: " + halfSize);
+        System.out.println("Size: " + radius);
+
+        double[] coords;
 
         String binaryCounter;
         char[] binaryArr;
 
         for (int i = 0; i < 8; i++) {
 
-            binaryCounter = String.format("%-3s", Integer.toBinaryString(i)).replaceAll(" ", "0");
+            binaryCounter = String.format("%3s", Integer.toBinaryString(i)).replaceAll(" ", "0");
+            System.out.println(binaryCounter);
             binaryArr = binaryCounter.toCharArray();
             
             coords = binaryArrToCoords(binaryArr);
@@ -41,8 +82,8 @@ public class Cube {
         }
     }
 
-    private static float[] binaryArrToCoords(char[] binaryArr) {
-        float[] temp = new float[3];
+    private static double[] binaryArrToCoords(char[] binaryArr) {
+        double[] temp = new double[3];
 
         for (int j = 0; j < 3; j++) {
             temp[j] = (binaryArr[j] == '0') ? 1:-1;
